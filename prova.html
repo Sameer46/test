@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Awesome Tasks</title>
+  <link href="styles/app.css" rel="stylesheet">
+  <script id="item-template" type="text/html">
+    <li data-completed="_COMPLETED_" class="list-group-item">
+      <span onclick="toogleStatus(event)">_TEXT_</span>
+      <button onclick="removeItem(event)">x</button>
+    </li>
+  </script>
+</head>
+<body>
+  <h2><font color="green">Awesome task</font></h2>
+  <div class="panel panel-default">
+  <form onsubmit="createNew(event)" class="form-group panel-heading">
+    <input type="text" id="new-item" placeholder="Add a new task..." class="form-control">
+    <button class="btn btn-primary">Add</button>
+  </form>
+  <ul id="task-list" class="list-group"></ul>
+    <div class="panel-footer text-center small">
+      <span>show:</span>
+      <button onclick="filterItems()" class="filter filter-all">all</button>
+      <button onclick="filterItems('active')" class="filter filter-active">active</button>
+      <button onclick="filterItems('completed')" class="filter filter-completed">completed</button>
+      <hr />
+      <button onclick="clearCompleted()" class="btn btn-default btn-xs">Clear completed</button>
+    </div>
+  </div>
+  <script>
+    //elenco javascript
+
+    const LoadList= () => {
+      if (localStorage.listItems) return JSON.parse(localStorage.listItems);
+
+      return [
+      {text: 'Buy coffee', completed: true},
+      {text: 'Buy milk', completed: false},
+      {text: 'Disco dance', completed: false}
+      ];
+    }
+    let listItems = LoadList();
+
+
+    const toogleStatus=event => {
+      const clickedItemText = event.target.innerHTML;
+
+      listItems.forEach(item => {
+        if (clickedItemText == item.text) {
+          item.completed = !item.completed;
+        }
+      })
+
+    updateList(listItems);
+    }
+    const clearCompleted = () => {
+      listItems = listItems.filter(item => !item.completed);
+      updateList(listItems);
+    }
+
+const filterItems = status => {
+  var itemsToShow = [];
+
+  if (status == 'completed') {
+    itemsToShow = listItems.filter(item => item.completed);
+  } else if (status == 'active') {
+    itemsToShow = listItems.filter(item => !item.completed);
+  } else {
+    itemsToShow = listItems;
+  }
+
+  updateList(itemsToShow, false);
+}
+    const updateList = (items, save = true) => {
+      const ListElement = document.querySelector('#task-list');
+      ListElement.innerHTML = '';
+
+      items.forEach(item => {
+      ListElement.innerHTML += renderItem(item);
+    });
+
+    if (save) localStorage.listItems= JSON.stringify(items);
+
+    updateCounters();
+    }
+
+    const updateCounters = ()  => {
+      var completedCount = 0
+
+      listItems.forEach(item => {
+        if (item.completed) completedCount++;
+      })
+      document.querySelector('.filter-all').dataset.count=listItems.length;
+      document.querySelector('.filter-active').dataset.count=listItems.length-completedCount
+      document.querySelector('.filter-completed').dataset.count=completedCount;
+    }
+
+
+    const renderItem = itemText => {
+      const template = document.querySelector("#item-template").innerHTML;
+
+      console.log(itemText.text, itemText.completed);
+
+      return template
+      .replace('_TEXT_',itemText.text)
+      .replace('_COMPLETED_', itemText.completed);
+    }
+
+    const removeItem = event => {
+      const clickedItemText = event.target.previousElementSibling.innerHTML;
+
+      listItems = listItems.filter(itemText => clickedItemText != itemText.text);
+
+      updateList(listItems)
+    }
+
+    const createNew = event => {
+      event.preventDefault();
+
+      const newItemElement = document.querySelector('#new-item');
+
+      const newItemValue = newItemElement.value.trim();
+
+      if (!newItemValue) return;
+      listItems.push({text: newItemValue, completed: false});
+      newItemElement.value = '';
+
+      updateList(listItems);
+    }
+
+    updateList(listItems);
+
+
+   
+
+  </script>
+</body>
+
+</html>

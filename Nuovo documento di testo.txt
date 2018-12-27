@@ -1,0 +1,62 @@
+const myQuestions = [
+    {
+    question: "Con il termine HARDWARE si intende",
+    answers: {
+      a: "L'insieme dei dispositivi fisici del computer",
+      b: "L'insieme di programmi installati permanentemente nel sistema",
+      c: "La sequenza di istruzioni che indicano al computer come risolvere i problemi",
+      d: "L'insieme di dispositivi per la gestione dell'interfaccia grafica"
+    },
+    correctAnswer: "a"
+  },
+  {
+  question: "Un BIT è",
+  answers: {
+    a: "Una locazione di memoria di dimensione fissata per ciascun computer",
+    b: "Una cifra binaria che assume valori fino ad 1 megabyte",
+    c: "L'unità elementare di informazione (0 o 1)",
+    d: "Un elemento costitutivo della memoria di tipo RAM ma non di tipo ROM"
+  },
+  correctAnswer: "c"
+},
+{
+    question: "Il termine CPU significa",
+    answers: {
+      a: "Calcolatore che processa le unità di memoria",
+      b: "unità centrale di processo ",
+      c: "unità di controllo e di processo",
+      d: "sistema di controllo delle unità"
+    },
+    correctAnswer: "b"
+  },
+{
+    question: "Un'ICONA è",
+    answers: {
+      a: "Il simbolo di Windows",
+      b: "Una particolare zona dello schermo che può contenere un messaggio",
+      c: "Una piccola immagine sulla scrivania di Windows che rappresenta un file o un prodotto software",
+      d: "Una zona dello schermo sensibile al mouse utile per eseguire un comando"
+    },
+    correctAnswer: "c"
+  },
+{
+    question: "Un MEGABYTE è formato da",
+    answers: {
+      a: "1024 bit",
+      b: "1024 byte",
+      c: "1024 Kbyte",
+      d: "1024 Gbyte"
+    },
+    correctAnswer: "c"
+  },
+{
+    question: "Con il termine MEMORIA di MASSA si intende",
+    answers: {
+      a: "Un supporto fisico interno al sistema che permette la comunicazione fra computer diversi",
+      b: "Un dispositivo di sola lettura su cui sono memorizzati particolari programmi",
+      c: "Un sistema di tipo magneto-ottico utilizzato per il riconoscimento dei dati",
+      d: "Un supporto che serve per registrare e leggere archivi di dati o programmi"
+    },
+    correctAnswer: "d"
+  }
+ ];

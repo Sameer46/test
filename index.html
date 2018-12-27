@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Info Quiz Alpha</title>
+</head>
+<body>
+  <div id="container">
+    <div id="navigation">
+      <span><a href="#">HOME</a></span>
+      <span><a href="quiz.html">QUIZ</a></span>
+    </div>
+    <div id="content">
+      <img class="mySlides" src="img/img4.png" style="width:100%; height:92.6vh">
+      <img class="mySlides" src="img/img6.jpg" style="width:100%; height:92.6vh">
+
+    </div>
+    <div id="cont">
+    <H1 class="title-center">BENVENUTI SUL NOSTRO SITO</H1>
+    <div id="home-div">
+      <p class="home-p">METTI ALLA PROVA LE TUE CONOSCENZE INFORMATICHE CON UN BREVE QUIZ<span class="span-home"><a href="quiz.html">INIZIA</a></span></p>
+
+      </div>
+    </div>
+    </div>
+    <div id="footer"><p>ISTITUTO DI ISTRUZIONE SUPERIORE A. GHISLERI</p></div>
+  </div>
+  <script type="text/javascript">
+    var slideIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > x.length) {slideIndex = 1}
+    x[slideIndex-1].style.display = "block";
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+  </script>
+</body>
+</html>

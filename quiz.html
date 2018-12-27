@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Info Quiz Alpha</title>
+</head>
+<body>
+<div id="container">
+  <div id="navigation">
+    <span><a href="index.html">HOME</a></span>
+      <span><a href="quiz.html">QUIZ</a></span>
+  </div>
+  <div id="content">
+    <div id="name"></div>
+    <div id="start">
+      <form>
+            <input id='usd' placeholder="inserisci il nome">
+            <button onclick="start()">Inizia</button>
+      </form>
+     </div>
+
+    <div id="quiz"></div>
+    <div id="results"></div>
+    <div id="btn">
+      <button id="btn-change" onclick="showResults()">FINE</button>
+    </div>
+  </div>
+</div>
+<script>
+  const quizContainer = document.getElementById('quiz');
+  const resultsContainer = document.getElementById('results');
+  const btnContainer = document.getElementById('btn');
+  const resutl = "";
+  let numCorrect="";
+  let myQuestions = [
+  {
+  question: "Con il termine HARDWARE si intende",
+  answers: {
+    a: "L'insieme dei dispositivi fisici del computer",
+    b: "L'insieme di programmi installati permanentemente nel sistema",
+    c: "La sequenza di istruzioni che indicano al computer come risolvere i problemi",
+    d: "L'insieme di dispositivi per la gestione dell'interfaccia grafica"
+  },
+  correctAnswer: "a"
+},
+{
+question: "Un BIT è",
+answers: {
+  a: "Una locazione di memoria di dimensione fissata per ciascun computer",
+  b: "Una cifra binaria che assume valori fino ad 1 megabyte",
+  c: "L'unità elementare di informazione (0 o 1)",
+  d: "Un elemento costitutivo della memoria di tipo RAM ma non di tipo ROM"
+},
+correctAnswer: "c"
+},
+{
+  question: "Il termine CPU significa",
+  answers: {
+    a: "Calcolatore che processa le unità di memoria",
+    b: "unità centrale di processo ",
+    c: "unità di controllo e di processo",
+    d: "sistema di controllo delle unità"
+  },
+  correctAnswer: "b"
+},
+{
+  question: "Un'ICONA è",
+  answers: {
+    a: "Il simbolo di Windows",
+    b: "Una particolare zona dello schermo che può contenere un messaggio",
+    c: "Una piccola immagine sulla scrivania di Windows che rappresenta un file o un prodotto software",
+    d: "Una zona dello schermo sensibile al mouse utile per eseguire un comando"
+  },
+  correctAnswer: "c"
+},
+{
+  question: "Un MEGABYTE è formato da",
+  answers: {
+    a: "1024 bit",
+    b: "1024 byte",
+    c: "1024 Kbyte",
+    d: "1024 Gbyte"
+  },
+  correctAnswer: "c"
+},
+{
+  question: "Con il termine MEMORIA di MASSA si intende",
+  answers: {
+    a: "Un supporto fisico interno al sistema che permette la comunicazione fra computer diversi",
+    b: "Un dispositivo di sola lettura su cui sono memorizzati particolari programmi",
+    c: "Un sistema di tipo magneto-ottico utilizzato per il riconoscimento dei dati",
+    d: "Un supporto che serve per registrare e leggere archivi di dati o programmi"
+  },
+  correctAnswer: "d"
+}
+];
+  console.log(myQuestions);
+//  const loadRank = ()=>{
+//    if(localStorage.rank) return JSON.parse(localStorage.rank);
+//    return[
+//    {
+  //    usd : "Sameer46",
+  //    result : "100%"
+//    }
+//    ];
+//  }
+//const globalRank = loadRank();
+//console.log(globalRank);
+
+
+
+
+
+
+ function showResults(){
+   numCorrect=0;
+   // all answers from quiz
+    const answersContainers = quizContainer.querySelectorAll('.answers');
+    myQuestions.forEach((currentQuestion,questionNumber)=>{
+      const answersContainer = answersContainers[questionNumber]
+      console.log(answersContainer)
+      const selector = 'input[name=question'+questionNumber+']:checked';
+   const userAnswer = (answersContainer.querySelector(selector) || {}).value;
+  //anwser checke
+  if(userAnswer === currentQuestion.correctAnswer){
+    //anwser is correct
+    numCorrect++;
+    answersContainers[questionNumber].style.color="lightgreen";
+  } else{
+    //answer is wrong
+
+    answersContainers[questionNumber].style.color="darkred";
+  }
+    //  console.log(userAnswer)
+  });
+    //show result on page on total
+  //  let element = document.getElementById('quiz').innerHTML="";
+  //  resultsContainer.innerHTML=numCorrect+'su'+ myQuestions.length;
+    result = (numCorrect/myQuestions.length)*100;
+    btnContainer.innerHTML='<button onclick="resultShow(event)">RISULTATO</button>'
+    console.log(result);
+
+
+     }
+
+ // display quiz
+//function start(){
+//  let element = document.getElementById('usd').value.trim();
+//  console.log(element)
+//  if(element === ""){
+  //  console.log("undefined")
+  //} else {
+  //  globalRank.forEach((name)=>{
+  //    if(name.usd===element){
+  //      console.log("nome gia in uso")
+  //    } else {
+  //      buildQuiz()
+    //    user[0]=[
+  //      {
+//          usd : element,
+    //      result :""
+    //    }
+  //      ];
+    //  }
+  //  })
+
+//  }
+
+
+//}
+function buildQuiz(){
+  let element = document.getElementById('start').innerHTML="";
+ // store the HTML output
+ const output = [];
+
+ // for each question...
+ myQuestions.forEach(
+   (currentQuestion, questionNumber) => {
+
+     //  store the list of answer choices
+     const answers = [];
+
+     // and for each available answer...
+     for(letter in currentQuestion.answers){
+
+       // ...add an HTML
+       answers.push(
+         `<label>
+           <input type="radio" name="question${questionNumber}" value="${letter}">
+           ${letter} :
+           ${currentQuestion.answers[letter]}
+         </label>`
+       );
+     }
+
+     // add question answers to the output
+     output.push(
+       `
+       <div class="question"> ${currentQuestion.question} </div>
+       <div class="answers"> ${answers.join('')} </div>
+       `
+
+     );
+   }
+ );
+
+ // finally combine our output list
+ quizContainer.innerHTML = output.join('');
+}
+buildQuiz();
+const resultShow =event =>{
+console.log(result);
+if (result<40) {
+  quizContainer.innerHTML='<div id="result-low"><H1>IL TUO LIVELLO DI CONOSCENZA È SCARSO RIPROVA DI NUOVO</H1></div>';
+  btnContainer.innerHTML='<button id="btn-home"l><a href="index.html"> HOME</button></a>'
+} else if (result<70) {
+  quizContainer.innerHTML='<div id="result-low"><H1>IL TUO LIVELLO DI CONOSCENZA È BUONO</H1></div>';
+btnContainer.innerHTML='<button id="btn-home"l><a href="index.html"> HOME</button></a>'
+} else{
+    quizContainer.innerHTML='<div id="result-low"><H1>IL TUO LIVELLO DI CONOSCENZA È OTTIMO</H1></div>';
+    btnContainer.innerHTML='<button id="btn-home"l><a href="index.html"> HOME</button></a>'
+}
+}
+</script>
+</body>
+</html>
